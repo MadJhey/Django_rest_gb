@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 from django.urls import path, include
-from authors.views import AuthorModelViewSet, BookModelViewSet, BiographyModelViewSet, ArticleModelViewSet, ProjectModelViewSet, TaskModelViewSet
+from authors.views import AuthorModelViewSet, BookModelViewSet, BiographyModelViewSet, ArticleModelViewSet, ProjectModelViewSet, TaskModelViewSet, MyAPIView
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -16,4 +16,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
+    path('myapi/', MyAPIView.as_view()),
+
 ]

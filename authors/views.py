@@ -1,8 +1,12 @@
-from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
+from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.response import Response
 
-from .models import Author, Book, Biography, Article, Users, Project, Task
-from .serializers import AuthorModelSerializer, BiographyModelSerializer, BookModelSerializer, ArticleModelSerializer, UserModelSerializer, ProjectModelSerializer, TaskModelSerializer
+from .models import Article, Author, Biography, Book, Project, Task, Users
+from .serializers import (ArticleModelSerializer, AuthorModelSerializer,
+                          BiographyModelSerializer, BookModelSerializer,
+                          ProjectModelSerializer, TaskModelSerializer)
 
 
 class AuthorModelViewSet(ModelViewSet):
@@ -34,3 +38,12 @@ class ProjectModelViewSet(ModelViewSet):
 class TaskModelViewSet(ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskModelSerializer
+
+
+class MyAPIView(APIView):
+
+    def get(self, request, format=None):
+        return Response({'message': 'Hello, get!'})
+
+    def post(self, request, format=None):
+        return Response({'message': 'Hello, post!'})
