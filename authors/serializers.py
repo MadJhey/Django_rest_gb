@@ -1,5 +1,5 @@
 from .models import Users
-from rest_framework.serializers import HyperlinkedModelSerializer
+from rest_framework.serializers import HyperlinkedModelSerializer, ModelSerializer
 from .models import Author, Biography, Book, Article, Project, Task
 
 
@@ -38,7 +38,7 @@ class UserModelSerializer(HyperlinkedModelSerializer):
         fields = ('id', 'fist_name', 'last_name', 'email')
 
 
-class ProjectModelSerializer(HyperlinkedModelSerializer):
+class ProjectModelSerializer(ModelSerializer):
 
     class Meta:
         model = Project

@@ -1,7 +1,12 @@
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.views import APIView
+from rest_framework.viewsets import ViewSet
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
+from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.decorators import action
+from rest_framework.pagination import LimitOffsetPagination
+
 
 from .models import Article, Author, Biography, Book, Project, Task, Users
 from .serializers import (ArticleModelSerializer, AuthorModelSerializer,
@@ -9,9 +14,25 @@ from .serializers import (ArticleModelSerializer, AuthorModelSerializer,
                           ProjectModelSerializer, TaskModelSerializer)
 
 
+class AuthorPogination(LimitOffsetPagination):
+    default_limit = 1
+
+
 class AuthorModelViewSet(ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorModelSerializer
+    filterset_fields = ('id', 'first_name')
+    pagination_class = AuthorPogination
+    # def get_queryset(self):
+    #     # return Author.objects.filter(pk=1)
+    #     # return Author.objects.filter(first_name__contains='admin1')
+    #     param = self.request.query_params.get('first_name', None)
+    #     # http://127.0.0.1:8000/api/authors/?first_name=admin1
+    #     if param is not None:
+    #         return Author.objects.filter(first_name__contains=param)
+    #     else:
+    #         # return Author.objects.all()
+    #         return super().get_queryset()
 
 
 class BookModelViewSet(ModelViewSet):
@@ -30,20 +51,24 @@ class ArticleModelViewSet(ModelViewSet):
     serializer_class = ArticleModelSerializer
 
 
-class ProjectModelViewSet(ModelViewSet):
-    queryset = Project.objects.all()
-    serializer_class = ProjectModelSerializer
+class ProjectModelViewSet(ViewSet):
+
+    def list(self, request):
+        projects = Project.objects.all()
+        serializer = ProjectModelSerializer(projects, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['get'])
+    def MyProjects(self, request):
+        return Response({'data': 'prp'})
 
 
-class TaskModelViewSet(ModelViewSet):
+class TaskModelViewSet(ViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskModelSerializer
 
 
-class MyAPIView(APIView):
-
-    def get(self, request, format=None):
-        return Response({'message': 'Hello, get!'})
-
-    def post(self, request, format=None):
-        return Response({'message': 'Hello, post!'})
+class MyAPIView(CreateAPIView, ListAPIView):
+    # renderer_classes = [JSONRenderer]
+    queryset = Author.objects.all()
+    serializer_class = AuthorModelSerializer

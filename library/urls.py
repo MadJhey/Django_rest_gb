@@ -9,7 +9,7 @@ router.register(r'authors', AuthorModelViewSet)
 router.register(r'book', BookModelViewSet)
 router.register(r'biography', BiographyModelViewSet)
 router.register(r'article', ArticleModelViewSet)
-router.register(r'project', ProjectModelViewSet)
+router.register(r'project', ProjectModelViewSet, basename='project')
 router.register(r'task', TaskModelViewSet)
 
 urlpatterns = [
@@ -17,5 +17,5 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
     path('myapi/', MyAPIView.as_view()),
-
+    # path('myproject/', ProjectModelViewSet.as_view({'get': 'list'})),
 ]
