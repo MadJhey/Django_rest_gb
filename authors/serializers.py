@@ -1,4 +1,4 @@
-from .models import Users
+# from .models import Users
 from rest_framework.serializers import HyperlinkedModelSerializer, ModelSerializer
 from .models import Author, Biography, Book, Article, Project, Task
 
@@ -32,13 +32,7 @@ class ArticleModelSerializer(HyperlinkedModelSerializer):
         fields = '__all__'
 
 
-class UserModelSerializer(HyperlinkedModelSerializer):
-    class Meta:
-        model = Users
-        fields = ('id', 'fist_name', 'last_name', 'email')
-
-
-class ProjectModelSerializer(ModelSerializer):
+class ProjectModelSerializer(HyperlinkedModelSerializer):
 
     class Meta:
         model = Project

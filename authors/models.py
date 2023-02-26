@@ -11,12 +11,6 @@ class Author(models.Model):
     birthday_year = models.PositiveIntegerField()
 
 
-class Users(models.Model):
-    first_name = models.CharField(max_length=64)
-    last_name = models.CharField(max_length=64)
-    birthday_year = models.PositiveIntegerField()
-
-
 class Biography(models.Model):
     text = models.TextField()
     author = models.OneToOneField(Author, on_delete=models.CASCADE)
@@ -33,17 +27,17 @@ class Article(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
 
 
-class Users(AbstractBaseUser):
-    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    first_name = models.CharField(max_length=64)
-    last_name = models.CharField(max_length=64)
-    email = models.CharField(
-        max_length=256,
-        unique=True,
-        error_messages={
-            "unique": "A user with that email address already exists.",
-        },
-    )
+# class Users(AbstractBaseUser):
+#     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+#     first_name = models.CharField(max_length=64)
+#     last_name = models.CharField(max_length=64)
+#     email = models.CharField(
+#         max_length=256,
+#         unique=True,
+#         error_messages={
+#             "unique": "A user with that email address already exists.",
+#         },
+#     )
 
 
 class Project(models.Model):
@@ -69,3 +63,7 @@ class Task(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Test(models.Model):
+    name = models.CharField(max_length=64)
