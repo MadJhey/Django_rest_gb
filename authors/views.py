@@ -7,9 +7,10 @@ from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.decorators import action
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import AllowAny
+from rest_framework import permissions
 
 
-from .models import Article, Author, Biography, Book, Project, Task, Users
+from .models import Article, Author, Biography, Book, Project, Task
 from .serializers import (ArticleModelSerializer, AuthorModelSerializer,
                           BiographyModelSerializer, BookModelSerializer,
                           ProjectModelSerializer, TaskModelSerializer)
@@ -53,24 +54,27 @@ class ArticleModelViewSet(ModelViewSet):
     serializer_class = ArticleModelSerializer
 
 
-class ProjectModelViewSet(ViewSet):
+class ProjectModelViewSet(ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectModelSerializer
+    # filterset_fields = ('id', 'first_name')
 
-    def list(self, request):
-        projects = Project.objects.all()
-        serializer = ProjectModelSerializer(projects, many=True)
-        return Response(serializer.data)
+    # def list(self, request):
+    #     projects = Project.objects.all()
+    #     serializer = ProjectModelSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @action(detail=False, methods=['get'])
-    def MyProjects(self, request):
-        return Response({'data': 'prp'})
+    # @action(detail=False, methods=['get'])
+    # def MyProjects(self, request):
+    #     return Response({'data': 'prp'})
 
 
-class TaskModelViewSet(ViewSet):
+class TaskModelViewSet(ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskModelSerializer
 
 
 class MyAPIView(CreateAPIView, ListAPIView):
     # renderer_classes = [JSONRenderer]
-    queryset = Author.objects.all()
-    serializer_class = AuthorModelSerializer
+    queryset = Project.objects.all()
+    serializer_class = ProjectModelSerializer
