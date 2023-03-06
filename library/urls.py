@@ -12,7 +12,7 @@ from rest_framework_simplejwt.views import (
 
 router = DefaultRouter()
 router.register(r'authors', AuthorModelViewSet)
-router.register(r'book', BookModelViewSet)
+router.register(r'books', BookModelViewSet)
 router.register(r'biography', BiographyModelViewSet)
 router.register(r'article', ArticleModelViewSet)
 

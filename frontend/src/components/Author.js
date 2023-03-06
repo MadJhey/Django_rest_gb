@@ -4,7 +4,7 @@ const AuthorItem = ({ item }) => {
     return (
         <tr>
             <td><Link to={`author/${item.id}`}>{item.id}</Link></td>
-            <td>{item.name}</td>
+            <td>{item.first_name}</td>
             <td>{item.birthday_year}</td>
         </tr>
     )
