@@ -36,13 +36,14 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.staticfiles',  # required for serving swagger ui's css/js
     # Others
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',  # CORS
     'django_filters',
-    'django.contrib.staticfiles',  # required for serving swagger ui's css/js
     'drf_yasg',
+    "graphene_django"
     # My Apps
     'authors'
 ]
@@ -197,4 +198,7 @@ SIMPLE_JWT = {
     "TOKEN_BLACKLIST_SERIALIZER": "rest_framework_simplejwt.serializers.TokenBlacklistSerializer",
     "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
+}
+GRAPHENE = {
+    "SCHEMA": "library.schema.schema"
 }

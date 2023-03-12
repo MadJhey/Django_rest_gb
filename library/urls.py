@@ -13,6 +13,8 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from userapp.views import UserListAPIView
 from rest_framework.permissions import AllowAny
+from graphene_django.views import GraphQLView
+
 
 router = DefaultRouter()
 router.register(r'authors', AuthorModelViewSet)
@@ -58,7 +60,6 @@ urlpatterns = [
          name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0),
          name='schema-redoc'),
-
-
+    path("graphql/", GraphQLView.as_view(graphiql=True))
 
 ]
