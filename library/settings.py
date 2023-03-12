@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'corsheaders',  # CORS
     'django_filters',
     'drf_yasg',
-    "graphene_django"
+    "graphene_django",
     # My Apps
     'authors'
 ]
